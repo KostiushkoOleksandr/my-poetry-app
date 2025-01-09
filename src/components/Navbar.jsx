@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { AppBar, Toolbar, Button, Box } from "@mui/material";
+import { AppBar, Toolbar, Button, Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
 
 function NavBar() {
     const [navColour, updateNavbar] = useState(false);
+
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Перевірка на мобільний пристрій
 
     function scrollHandler() {
         if (window.scrollY >= 20) {
@@ -26,18 +29,48 @@ function NavBar() {
                 transition: "background-color 0.3s",
             }}
         >
-            <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-start" }}>
-                    {/* Логотип або назва */}
-                    {/* <img src={logo} alt="brand" style={{ width: "40px", marginRight: "10px" }} /> */}
-                </Box>
+            <Toolbar
+                sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: isMobile ? "0 10px" : "0 20px",
+                }}
+            >
+                {/* Текст "AlexKost-poetry" */}
+                <Typography
+                    variant="h6"
+                    sx={{
+                        position: isMobile ? "relative" : "absolute",
+                        left: isMobile ? "0" : "50%",
+                        transform: isMobile ? "none" : "translateX(-50%)",
+                        color: "white",
+                        fontSize: isMobile ? "1.2rem" : "1.5rem",
+                        fontWeight: "bold",
+                        textAlign: isMobile ? "left" : "center",
+                    }}
+                >
+                    AlexKost-Poetry
+                </Typography>
 
-                <Box sx={{ display: "flex", gap: "20px" }}>
+                {/* Кнопки навігації */}
+                <Box
+                    sx={{
+                        display: "flex",
+                        gap: isMobile ? "10px" : "20px",
+                        justifyContent: "flex-end",
+                        marginLeft: "auto", // Додаємо автоматичний відступ, щоб кнопки завжди були праворуч
+                    }}
+                >
                     <Button
                         component={Link}
                         to="/"
                         onClick={() => updateNavbar(false)}
-                        sx={{ color: "white", fontSize: "1.2rem" }}
+                        sx={{
+                            color: "white",
+                            fontSize: isMobile ? "0.9rem" : "1.2rem",
+                            padding: isMobile ? "5px 10px" : "10px 20px",
+                        }}
                     >
                         Home
                     </Button>
@@ -46,7 +79,11 @@ function NavBar() {
                         component={Link}
                         to="/about"
                         onClick={() => updateNavbar(false)}
-                        sx={{ color: "white", fontSize: "1.2rem" }}
+                        sx={{
+                            color: "white",
+                            fontSize: isMobile ? "0.9rem" : "1.2rem",
+                            padding: isMobile ? "5px 10px" : "10px 20px",
+                        }}
                     >
                         About
                     </Button>
