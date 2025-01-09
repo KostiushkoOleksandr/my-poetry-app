@@ -40,6 +40,9 @@ function NavBar() {
                 {/* Текст "AlexKost-poetry" */}
                 <Typography
                     variant="h6"
+                    component={Link}
+                    to="/"
+                    onClick={() => updateNavbar(false)}
                     sx={{
                         position: isMobile ? "relative" : "absolute",
                         left: isMobile ? "0" : "50%",
@@ -48,6 +51,7 @@ function NavBar() {
                         fontSize: isMobile ? "1.2rem" : "1.5rem",
                         fontWeight: "bold",
                         textAlign: isMobile ? "left" : "center",
+                        textDecoration: "none"
                     }}
                 >
                     AlexKost-Poetry
